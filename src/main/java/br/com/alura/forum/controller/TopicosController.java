@@ -4,8 +4,8 @@ import br.com.alura.forum.modelo.Curso;
 import br.com.alura.forum.modelo.Topico;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,10 +13,14 @@ import java.util.List;
 public class TopicosController {
 
     @RequestMapping("/topicos")
-    public List<Topico> lista() {
+    @ResponseBody
 
+
+    public List<Topico> lista() {
         Topico topico = new Topico("Titulo 1", "adicionando titulo 1", new Curso("Programacao", "BackEnd"));
         return Arrays.asList(topico);
 
     }
+
 }
+
