@@ -1,64 +1,36 @@
 package br.com.alura.forum.modelo;
 
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@Entity
 public class Topico {
-
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
     private String titulo;
     private String mensagem;
+
+    @Enumerated(EnumType.STRING)
     private StatusTopico status = StatusTopico.NAO_RESPONDIDO;
+    @ManyToOne // um usuario tem vários tópicos
+    private Usuario autor;
+    @ManyToOne // um curso tem vários tópicos
     private Curso curso;
+    @OneToMany(mappedBy = "topico") // um topico pode ter várias respostas
     private List<Resposta> respostas = new ArrayList<>();
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getMensagem() {
-        return mensagem;
-    }
-
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
-    }
-
-    public StatusTopico getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusTopico status) {
-        this.status = status;
-    }
-
-    public Curso getCurso() {
-        return curso;
-    }
-
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-    public List<Resposta> getRespostas() {
-        return respostas;
-    }
-
-    public void setRespostas(List<Resposta> respostas) {
-        this.respostas = respostas;
+    public Topico() {
     }
 
     public Topico(String titulo, String mensagem, Curso curso) {
@@ -66,4 +38,6 @@ public class Topico {
         this.mensagem = mensagem;
         this.curso = curso;
     }
+
+
 }

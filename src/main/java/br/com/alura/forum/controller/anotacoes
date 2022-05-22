@@ -1,0 +1,25 @@
+ Não é de boa prática retornar a classe de domínio, pois nem todos os endpoints precisam devolver todos os atributos, se utiliza-se o DTO
+(data transfer objetct) só com atributos primitivos (string , integer etc).
+OBS: "DTO não precisa de set ."
+
+DO e DTO( dados que saem da API) - diferença (pesquisar)
+
+API Rest: requisições http/ flexibilidade/ integração de sistemas web ) / URI - identificador /alunos (endpoints) / representações: Json ou XML
+/ comunicação stateless (não armazena dados na sessão logada).
+
+criação Banco de dados H2.(em memória)
+
+As classes de domínio do banco precisam ter as anotoções @Entity, @Id.
+    @Enumerated(EnumType.STRING) para gravar o nome da constante da Enum.
+
+    Dentro do domínio (classe) principal, precisa-se dizer a cardinalidade das variáveis
+
+DAO - chamada para consultas
+
+Form - TopicoForm , esse FORM significa que você está recebendo dados do cliente
+
+@RequestBody  pegar informação do corpo da requisição
+
+No postman, na aba headers, dizer qual tipo de dados o cliente ta enviando (no corpo), no caso, JSON
+
+
