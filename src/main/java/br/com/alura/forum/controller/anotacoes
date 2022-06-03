@@ -7,7 +7,7 @@ DO e DTO( dados que saem da API) - diferença (pesquisar)
 API Rest: requisições http/ flexibilidade/ integração de sistemas web ) / URI - identificador /alunos (endpoints) / representações: Json ou XML
 / comunicação stateless (não armazena dados na sessão logada).
 
-criação Banco de dados H2.(em memória)
+criação Banco de dados H2.(em memória) http://localhost:8080/h2-console/login
 
 As classes de domínio do banco precisam ter as anotoções @Entity, @Id.
     @Enumerated(EnumType.STRING) para gravar o nome da constante da Enum.
@@ -21,5 +21,10 @@ Form - TopicoForm , esse FORM significa que você está recebendo dados do clien
 @RequestBody  pegar informação do corpo da requisição
 
 No postman, na aba headers, dizer qual tipo de dados o cliente ta enviando (no corpo), no caso, JSON
+
+post: cadastrar
+get = consultando dados (listar)
+quando é id colocar @PathVariable (ex: detalhar-topico)
+//  @PathVariable ("id ")Long codigo  outra forma de usar
 
 

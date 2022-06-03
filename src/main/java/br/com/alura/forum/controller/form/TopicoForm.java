@@ -19,7 +19,7 @@ public class TopicoForm {
     @NotNull
     private String mensagem;
 
-    @NotNull
+    @NotNull  @NotBlank(message = "O nome curso não pode vim em branco")
     private String nomeCurso;
 
     public Topico converterForm(CursoRepository cursoRepository) {

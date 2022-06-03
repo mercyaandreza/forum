@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,24 +26,30 @@ public class TopicosController {
     @Autowired
     private CursoRepository cursoRepository;
 
-    @GetMapping
-    public List<TopicoDTO> lista(String nomeCurso) {
-        if(nomeCurso == null){
-            List<Topico> topicos = topicoRepository.findAll();
-            return TopicoDTO.converterDTO(topicos);
-        } else{
-            List<Topico> topicos = topicoRepository.findByCurso_Nome(nomeCurso);
-            return TopicoDTO.converterDTO(topicos);
-        }
-    }
-
-    @PostMapping
+    @PostMapping("cadastrar-curso")
     public ResponseEntity<TopicoDTO> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
         Topico topico = form.converterForm(cursoRepository);
         topicoRepository.save(topico);
 
         URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
         return ResponseEntity.created(uri).body(new TopicoDTO(topico));
+    }
+
+    @GetMapping("listar-curso")
+    public List<TopicoDTO> lista(@Valid String nomeCurso) {
+        if(nomeCurso == null){
+            return new ArrayList<>();
+        } else{
+            List<Topico> topicos = topicoRepository.findByCurso_Nome(nomeCurso);
+            return TopicoDTO.converterDTO(topicos);
+        }
+    }
+
+    @GetMapping ("/detalhar-topico{id}")
+    public TopicoDTO detalharTopico (@PathVariable Long id){
+
+        Topico getId = topicoRepository.getById(id);
+        return new TopicoDTO(getId);
     }
 }
 
