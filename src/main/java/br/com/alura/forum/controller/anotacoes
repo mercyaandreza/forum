@@ -27,4 +27,6 @@ get = consultando dados (listar)
 quando é id colocar @PathVariable (ex: detalhar-topico)
 //  @PathVariable ("id ")Long codigo  outra forma de usar
 
+DetalhesDTO = lista de resposta pois um topico pode ter várias respostas
+
 

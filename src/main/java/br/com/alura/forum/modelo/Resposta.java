@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,4 +19,5 @@ public class Resposta {
     @ManyToOne
     private Usuario autor;
     private Boolean solucao = false;
+    private LocalDateTime dataCriacao;
 }
