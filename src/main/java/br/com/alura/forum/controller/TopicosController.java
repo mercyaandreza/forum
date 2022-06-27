@@ -2,16 +2,17 @@ package br.com.alura.forum.controller;
 
 import br.com.alura.forum.controller.dto.DetalharDTO;
 import br.com.alura.forum.controller.dto.TopicoDTO;
+import br.com.alura.forum.controller.form.AtualizaoTopicoForm;
 import br.com.alura.forum.controller.form.TopicoForm;
 import br.com.alura.forum.modelo.Topico;
 import br.com.alura.forum.repository.CursoRepository;
 import br.com.alura.forum.repository.TopicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
@@ -53,9 +54,24 @@ public class TopicosController {
     }
 
     @GetMapping ("detalhe/{id}")
-    public DetalharDTO detalharTopico (@PathVariable Long id){
+    public DetalharDTO detalharTopico (@PathVariable Long id) {
         Topico topicoId = topicoRepository.getById(id);
         return new DetalharDTO(topicoId);
     }
+
+    @PutMapping("atualizar/{id}")
+    @Transactional
+    public ResponseEntity<TopicoDTO> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizaoTopicoForm atualizaoTopicoForm) {
+        Topico topico = atualizaoTopicoForm.atualizar(id, topicoRepository);
+        return ResponseEntity.ok(new TopicoDTO(topico));
+    }
+
+    @DeleteMapping ("remover/{id}")
+    @Transactional
+    public ResponseEntity <?>remover(@PathVariable Long id){
+        topicoRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
 }
 
